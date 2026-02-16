@@ -1,4 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { CardValidationContext } from 'src/common/modules/validation/contexts/card-validation.context';
+import { CardNumberDto } from './dtos/CardNumber.dto';
 
 @Injectable()
-export class ToolsService {}
+export class ToolsService {
+  constructor(private readonly validator: CardValidationContext) {}
+
+  public validateCard(dto: CardNumberDto): boolean {
+    return this.validator.execute(dto.number);
+  }
+}
