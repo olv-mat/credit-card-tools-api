@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsNumberString,
@@ -6,6 +7,7 @@ import {
 } from 'class-validator';
 
 export class CardNumberDto {
+  @ApiProperty({ example: '3589865206116492' })
   @IsNotEmpty()
   @IsNumberString()
   @MinLength(16)
