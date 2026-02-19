@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CardValidationStrategy } from '../card-validation.strategy';
 
 @Injectable()
-export class LuhnStrategy extends CardValidationStrategy {
+export class LuhnAlgorithmStrategy extends CardValidationStrategy {
   public validate(number: string): boolean {
     const digits = number.split('');
     const reversedDigits = digits.reverse().map(Number);

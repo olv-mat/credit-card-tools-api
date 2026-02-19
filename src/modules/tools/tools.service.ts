@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CardValidationContext } from 'src/common/modules/validation/contexts/card-validation.context';
+import { CardValidationContext } from 'src/common/modules/validation/card/card-validation.context';
 import { CardNumberDto } from './dtos/CardNumber.dto';
 
 @Injectable()

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Test } from '@nestjs/testing';
-import { CardValidationContext } from 'src/common/modules/validation/contexts/card-validation.context';
+import { CardValidationContext } from 'src/common/modules/validation/card/card-validation.context';
 import { ToolsService } from '../tools.service';
 import { makeCardNumberDto } from './factories/card-number-dto.factory';
 

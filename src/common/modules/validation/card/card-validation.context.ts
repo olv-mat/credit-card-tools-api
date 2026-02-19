@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CardValidationStrategy } from '../strategies/card-validation.strategy';
+import { CardValidationStrategy } from './card-validation.strategy';
 
 @Injectable()
 export class CardValidationContext {
