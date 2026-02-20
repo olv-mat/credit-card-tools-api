@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { CardValidationResponseDto } from 'src/modules/tools/dtos/CardValidationResponse.dto';
 import { CardValidationStrategy } from '../card-validation.strategy';
 
 @Injectable()
 export class LuhnAlgorithmStrategy extends CardValidationStrategy {
-  public validate(number: string): boolean {
+  public validate(number: string): CardValidationResponseDto {
     const digits = number.split('');
     const reversedDigits = digits.reverse().map(Number);
     const processedDigits: string[] = [];
@@ -25,6 +26,7 @@ export class LuhnAlgorithmStrategy extends CardValidationStrategy {
     const sum: number = adjustedDigits.reduce((accumulator, value) => {
       return accumulator + value;
     }, 0);
-    return sum % 10 == 0;
+    const isValid = sum % 10 == 0;
+    return CardValidationResponseDto.create(number, isValid);
   }
 }

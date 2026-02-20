@@ -11,7 +11,6 @@ export class ToolsController {
   @Post('/cards')
   @ApiOperation({ summary: 'Validate a credit card number' })
   public validateCard(@Body() dto: CardNumberDto): CardValidationResponseDto {
-    const isValid = this.toolsService.validateCard(dto);
-    return CardValidationResponseDto.create(isValid);
+    return this.toolsService.validateCard(dto);
   }
 }
