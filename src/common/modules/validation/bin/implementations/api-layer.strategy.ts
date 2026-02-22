@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { AxiosError } from 'axios';
 import { firstValueFrom } from 'rxjs';
 import { BINValidationResponseDto } from 'src/modules/tools/dtos/BINValidationResponse.dto';
 import { BINValidationStrategy } from '../bin-validation.strategy';
@@ -32,16 +33,23 @@ export class APILayerStrategy extends BINValidationStrategy {
   }
 
   public async validate(bin: string): Promise<BINValidationResponseDto> {
-    const apiKey = this.configService.getOrThrow<string>('API_LAYER_KEY');
-    const endpoint = `https://api.apilayer.com/bincheck/${bin}`;
-    const { data } = await firstValueFrom(
-      this.httpService.get<APILayerResponse>(endpoint, {
-        headers: { apikey: apiKey },
-      }),
-    );
-    if ('bin' in data) {
+    try {
+      const apiKey = this.configService.getOrThrow<string>('API_LAYER_KEY');
+      const endpoint = `https://api.apilayer.com/bincheck/${bin}`;
+      const { data } = await firstValueFrom(
+        this.httpService.get<APILayerResponse>(endpoint, {
+          headers: { apikey: apiKey },
+        }),
+      );
+      if (!data || !('bin' in data)) {
+        throw new Error();
+      }
       return BINValidationResponseDto.create(data.bin, data.scheme);
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 404) {
+        throw new BadRequestException('BIN not found');
+      }
+      throw error;
     }
-    throw new BadRequestException('BIN not found');
   }
 }
