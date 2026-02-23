@@ -1,10 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { SwaggerBadRequest } from 'src/common/swagger/responses.swagger';
-import { BINNumberDto } from './dtos/BINNumber.dto';
-import { BINValidationResponseDto } from './dtos/BINValidationResponse.dto';
-import { CardNumberDto } from './dtos/CardNumber.dto';
-import { CardValidationResponseDto } from './dtos/CardValidationResponse.dto';
+import { BINNumberDto } from './dtos/bin-number.dto';
+import { BINValidationResponseDto } from './dtos/bin-validation-response.dto';
+import { CardNumberDto } from './dtos/card-number.dto';
+import { CardValidationResponseDto } from './dtos/card-validation-response.dto';
 import { ToolsService } from './tools.service';
 
 @Controller('tools/validations')

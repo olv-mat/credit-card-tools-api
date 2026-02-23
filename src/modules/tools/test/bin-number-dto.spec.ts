@@ -1,5 +1,5 @@
 import { validate } from 'class-validator';
-import { makeBINNumberDto } from './factories/bin-number-dto.factory';
+import { makeBINNumberDto } from './factories/dtos/bin-number.factory';
 
 describe('BINNumberDto', () => {
   it('should accept when valid', async () => {

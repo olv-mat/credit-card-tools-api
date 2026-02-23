@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { BINValidationContext } from 'src/common/modules/validation/bin/bin-validation.context';
 import { CardValidationContext } from 'src/common/modules/validation/card/card-validation.context';
-import { BINNumberDto } from './dtos/BINNumber.dto';
-import { BINValidationResponseDto } from './dtos/BINValidationResponse.dto';
-import { CardNumberDto } from './dtos/CardNumber.dto';
-import { CardValidationResponseDto } from './dtos/CardValidationResponse.dto';
+import { BINNumberDto } from './dtos/bin-number.dto';
+import { BINValidationResponseDto } from './dtos/bin-validation-response.dto';
+import { CardNumberDto } from './dtos/card-number.dto';
+import { CardValidationResponseDto } from './dtos/card-validation-response.dto';
 
 @Injectable()
 export class ToolsService {

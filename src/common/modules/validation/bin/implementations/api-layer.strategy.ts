@@ -3,7 +3,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AxiosError } from 'axios';
 import { firstValueFrom } from 'rxjs';
-import { BINValidationResponseDto } from 'src/modules/tools/dtos/BINValidationResponse.dto';
+import { BINValidationResponseDto } from 'src/modules/tools/dtos/bin-validation-response.dto';
 import { BINValidationStrategy } from '../bin-validation.strategy';
 
 // npm i @nestjs/axios axios

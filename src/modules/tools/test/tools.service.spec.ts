@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Test } from '@nestjs/testing';
+import { BINValidationContext } from 'src/common/modules/validation/bin/bin-validation.context';
 import { CardValidationContext } from 'src/common/modules/validation/card/card-validation.context';
 import { ToolsService } from '../tools.service';
-import { makeCardNumberDto } from './factories/card-number-dto.factory';
+import { makeCardNumberDto } from './factories/dtos/card-number.factory';
+import { makeCardValidationResponseDto } from './factories/dtos/card-validation-response.factory';
 
 type ToolsServiceContext = {
   toolsService: ToolsService;
   cardValidationContext: CardValidationContext;
+  binValidationContext: BINValidationContext;
 };
 
 describe('ToolsService', () => {
@@ -17,11 +20,13 @@ describe('ToolsService', () => {
       providers: [
         ToolsService,
         { provide: CardValidationContext, useValue: { execute: jest.fn() } },
+        { provide: BINValidationContext, useValue: { execute: jest.fn() } },
       ],
     }).compile();
     context = {
       toolsService: module.get(ToolsService),
       cardValidationContext: module.get(CardValidationContext),
+      binValidationContext: module.get(BINValidationContext),
     };
   });
 
@@ -29,18 +34,24 @@ describe('ToolsService', () => {
     it('should return true when card number is valid', () => {
       const { toolsService, cardValidationContext } = context;
       const dto = makeCardNumberDto();
-      jest.spyOn(cardValidationContext, 'execute').mockReturnValue(true);
+      const validationResponse = makeCardValidationResponseDto();
+      jest
+        .spyOn(cardValidationContext, 'execute')
+        .mockReturnValue(validationResponse);
       const result = toolsService.validateCard(dto);
-      expect(result).toBe(true);
+      expect(result).toBe(validationResponse);
       expect(cardValidationContext.execute).toHaveBeenCalledWith(dto.number);
     });
 
     it('should return false when card number is invalid', () => {
       const { toolsService, cardValidationContext } = context;
       const dto = makeCardNumberDto({ number: '4589865206116492' });
-      jest.spyOn(cardValidationContext, 'execute').mockReturnValue(false);
+      const validationResponse = makeCardValidationResponseDto();
+      jest
+        .spyOn(cardValidationContext, 'execute')
+        .mockReturnValue(validationResponse);
       const result = toolsService.validateCard(dto);
-      expect(result).toBe(false);
+      expect(result).toBe(validationResponse);
       expect(cardValidationContext.execute).toHaveBeenCalledWith(dto.number);
     });
   });

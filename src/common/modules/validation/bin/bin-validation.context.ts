@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BINValidationResponseDto } from 'src/modules/tools/dtos/BINValidationResponse.dto';
+import { BINValidationResponseDto } from 'src/modules/tools/dtos/bin-validation-response.dto';
 import { BINValidationStrategy } from './bin-validation.strategy';
 
 @Injectable()

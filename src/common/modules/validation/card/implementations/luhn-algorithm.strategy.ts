@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CardValidationResponseDto } from 'src/modules/tools/dtos/CardValidationResponse.dto';
+import { CardValidationResponseDto } from 'src/modules/tools/dtos/card-validation-response.dto';
 import { CardValidationStrategy } from '../card-validation.strategy';
 
 @Injectable()

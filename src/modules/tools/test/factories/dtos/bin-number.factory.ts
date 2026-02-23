@@ -1,4 +1,4 @@
-import { BINNumberDto } from '../../dtos/BINNumber.dto';
+import { BINNumberDto } from 'src/modules/tools/dtos/bin-number.dto';
 
 export const makeBINNumberDto = (
   override?: Partial<BINNumberDto>,

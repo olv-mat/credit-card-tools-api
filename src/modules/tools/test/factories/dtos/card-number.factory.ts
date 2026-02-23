@@ -1,4 +1,4 @@
-import { CardNumberDto } from '../../dtos/CardNumber.dto';
+import { CardNumberDto } from 'src/modules/tools/dtos/card-number.dto';
 
 export const makeCardNumberDto = (
   override?: Partial<CardNumberDto>,

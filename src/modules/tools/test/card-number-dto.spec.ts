@@ -1,5 +1,5 @@
 import { validate } from 'class-validator';
-import { makeCardNumberDto } from './factories/card-number-dto.factory';
+import { makeCardNumberDto } from './factories/dtos/card-number.factory';
 
 describe('CardNumberDto', () => {
   it('should accept when valid', async () => {
