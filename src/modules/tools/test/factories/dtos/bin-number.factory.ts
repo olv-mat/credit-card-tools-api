@@ -4,7 +4,7 @@ export const makeBINNumberDto = (
   override?: Partial<BINNumberDto>,
 ): BINNumberDto => {
   return Object.assign(new BINNumberDto(), {
-    bin: '536853',
+    bin: '302596',
     ...override,
   });
 };
