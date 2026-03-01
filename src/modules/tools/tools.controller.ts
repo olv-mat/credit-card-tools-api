@@ -1,5 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
+import { BINCacheInterceptorInterceptor } from 'src/common/interceptors/bin-cache.interceptor';
 import { SwaggerBadRequest } from 'src/common/swagger/responses.swagger';
 import { BINNumberDto } from './dtos/bin-number.dto';
 import { BINValidationResponseDto } from './dtos/bin-validation-response.dto';
@@ -18,6 +19,7 @@ export class ToolsController {
   }
 
   @Post('/bins')
+  @UseInterceptors(BINCacheInterceptorInterceptor)
   @ApiOperation({ summary: 'Validate card BIN and identify card scheme' })
   @SwaggerBadRequest('BIN not found')
   public async validateBIN(
