@@ -1,4 +1,4 @@
-export class CardValidationResponseDto {
+export class CreditCardNumberResponseDto {
   public readonly number: string;
   public readonly isValid: boolean;
 
@@ -10,7 +10,7 @@ export class CardValidationResponseDto {
   public static create(
     number: string,
     isValid: boolean,
-  ): CardValidationResponseDto {
-    return new CardValidationResponseDto(number, isValid);
+  ): CreditCardNumberResponseDto {
+    return new CreditCardNumberResponseDto(number, isValid);
   }
 }

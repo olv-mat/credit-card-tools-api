@@ -6,7 +6,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class CardNumberDto {
+export class CreditCardNumberDto {
   @ApiProperty({ example: '3589865206116492' })
   @IsNotEmpty()
   @IsNumberString()
