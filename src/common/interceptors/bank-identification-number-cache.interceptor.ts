@@ -9,15 +9,17 @@ import {
 } from '@nestjs/common';
 import type { Cache } from 'cache-manager';
 import { from, Observable, of, switchMap, tap } from 'rxjs';
-import { BINValidationResponseDto } from 'src/modules/tools/dtos/bin-validation-response.dto';
+import { BankIdentificationNumberResponseDto } from 'src/modules/bank-identification-number/dtos/bank-identification-number-response.dto';
 
 interface BINBody {
   bin: string;
 }
 
 @Injectable()
-export class BINCacheInterceptorInterceptor implements NestInterceptor<BINValidationResponseDto> {
-  private readonly logger = new Logger(BINCacheInterceptorInterceptor.name);
+export class BankIdentificationNumberCacheInterceptor implements NestInterceptor<BankIdentificationNumberResponseDto> {
+  private readonly logger = new Logger(
+    BankIdentificationNumberCacheInterceptor.name,
+  );
 
   // Inject The Cache Manager to Interact With The Storage
   constructor(@Inject(CACHE_MANAGER) private readonly cache: Cache) {}
@@ -38,7 +40,7 @@ export class BINCacheInterceptorInterceptor implements NestInterceptor<BINValida
     }
 
     // Check if The BIN Data Exists in The Cache
-    return from(this.cache.get<BINValidationResponseDto>(bin)).pipe(
+    return from(this.cache.get<BankIdentificationNumberResponseDto>(bin)).pipe(
       switchMap((cached) => {
         // If Found, Log The Hit And Return The Cached Data Immediately
         if (cached) {
@@ -47,7 +49,7 @@ export class BINCacheInterceptorInterceptor implements NestInterceptor<BINValida
         }
         // If Not Found, Execute The Request And Cache The Result
         return next.handle().pipe(
-          tap((response: BINValidationResponseDto) => {
+          tap((response: BankIdentificationNumberResponseDto) => {
             this.logger.warn(`Cache miss for ${bin}`);
             void this.cache.set(bin, response, 60 * 60 * 1000);
           }),

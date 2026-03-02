@@ -1,6 +1,7 @@
 import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { BankIdentificationNumberModule } from './modules/bank-identification-number/bank-identification-number.module';
 import { ToolsModule } from './modules/tools/tools.module';
 
 // npm i @nestjs/config
@@ -9,6 +10,7 @@ import { ToolsModule } from './modules/tools/tools.module';
 @Module({
   imports: [
     ToolsModule,
+    BankIdentificationNumberModule,
     ConfigModule.forRoot({ isGlobal: true }),
     CacheModule.register({
       isGlobal: true,

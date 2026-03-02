@@ -1,8 +1,6 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import { BINValidationContext } from './bin/bin-validation.context';
-import { BINValidationStrategy } from './bin/bin-validation.strategy';
-import { APILayerStrategy } from './bin/implementations/api-layer.strategy';
+import { APILayerStrategy } from '../../../modules/bank-identification-number/strategies/implementations/api-layer.strategy';
 import { CardValidationContext } from './card/card-validation.context';
 import { CardValidationStrategy } from './card/card-validation.strategy';
 import { LuhnAlgorithmStrategy } from './card/implementations/luhn-algorithm.strategy';
@@ -11,12 +9,10 @@ import { LuhnAlgorithmStrategy } from './card/implementations/luhn-algorithm.str
   imports: [HttpModule],
   providers: [
     CardValidationContext,
-    BINValidationContext,
     LuhnAlgorithmStrategy,
     APILayerStrategy,
     { provide: CardValidationStrategy, useExisting: LuhnAlgorithmStrategy },
-    { provide: BINValidationStrategy, useExisting: APILayerStrategy },
   ],
-  exports: [CardValidationContext, BINValidationContext],
+  exports: [CardValidationContext],
 })
 export class ValidationModule {}

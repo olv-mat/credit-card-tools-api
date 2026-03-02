@@ -6,8 +6,8 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class BINNumberDto {
-  @ApiProperty({ example: '536853' })
+export class BankIdentificationNumberDto {
+  @ApiProperty({ example: '302596' })
   @IsNotEmpty()
   @IsNumberString()
   @MinLength(6)

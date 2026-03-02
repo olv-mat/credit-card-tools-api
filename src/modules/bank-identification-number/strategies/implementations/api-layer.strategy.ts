@@ -3,8 +3,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AxiosError } from 'axios';
 import { firstValueFrom } from 'rxjs';
-import { BINValidationResponseDto } from 'src/modules/tools/dtos/bin-validation-response.dto';
-import { BINValidationStrategy } from '../bin-validation.strategy';
+import { BankIdentificationNumberResponseDto } from '../../dtos/bank-identification-number-response.dto';
+import { BankIdentificationNumberStrategy } from '../bank-identification-number.strategy';
 
 // npm i @nestjs/axios axios
 
@@ -24,7 +24,7 @@ interface APILayerErrorResponse {
 type APILayerResponse = APILayerSuccessResponse | APILayerErrorResponse;
 
 @Injectable()
-export class APILayerStrategy extends BINValidationStrategy {
+export class APILayerStrategy extends BankIdentificationNumberStrategy {
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
@@ -32,7 +32,9 @@ export class APILayerStrategy extends BINValidationStrategy {
     super();
   }
 
-  public async validate(bin: string): Promise<BINValidationResponseDto> {
+  public async validate(
+    bin: string,
+  ): Promise<BankIdentificationNumberResponseDto> {
     try {
       const apiKey = this.configService.getOrThrow<string>('API_LAYER_KEY');
       const endpoint = `https://api.apilayer.com/bincheck/${bin}`;
@@ -44,7 +46,7 @@ export class APILayerStrategy extends BINValidationStrategy {
       if (!data || !('bin' in data)) {
         throw new Error();
       }
-      return BINValidationResponseDto.create(data.bin, data.scheme);
+      return BankIdentificationNumberResponseDto.create(data.bin, data.scheme);
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 404) {
         throw new BadRequestException('BIN not found');
