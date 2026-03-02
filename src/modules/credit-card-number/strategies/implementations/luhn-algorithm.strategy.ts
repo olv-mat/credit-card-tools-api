@@ -5,28 +5,24 @@ import { CreditCardNumberStrategy } from '../credit-card-number.strategy';
 @Injectable()
 export class LuhnAlgorithmStrategy extends CreditCardNumberStrategy {
   public validate(number: string): CreditCardNumberResponseDto {
-    const digits = number.split('');
-    const reversedDigits = digits.reverse().map(Number);
-    const processedDigits: string[] = [];
-    reversedDigits.forEach((digit, position) => {
-      const oddPosition = position % 2 != 0;
-      const processedDigit = oddPosition ? String(digit * 2) : String(digit);
-      processedDigits.push(processedDigit);
-    });
-    const adjustedDigits: number[] = [];
-    processedDigits.forEach((digit) => {
-      const twoDigits = digit.length == 2;
-      const adjustedDigit = twoDigits
-        ? digit.split('').reduce((accumulator, character) => {
-            return accumulator + Number(character);
-          }, 0)
-        : Number(digit);
-      adjustedDigits.push(adjustedDigit);
-    });
-    const sum: number = adjustedDigits.reduce((accumulator, value) => {
-      return accumulator + value;
-    }, 0);
-    const isValid = sum % 10 == 0;
+    const sum = number
+      .split('') // Convert The Input String Into an Array of Characters
+      .reverse() // Reverse The Array as The Luhn Algorithm Processes From Right to Left
+      .reduce((accumulator, character, index) => {
+        let digit = Number(character);
+        // Double The Value of Every Second Digit (Odd Indices)
+        if (index % 2 !== 0) {
+          digit *= 2;
+          // If The Double is Greater Than 9, Subtract 9 to Get The Sum of Its Digits
+          if (digit > 9) {
+            digit -= 9;
+          }
+        }
+        // Accumulate The Processed Digit Into The Total Sum
+        return accumulator + digit;
+      }, 0);
+    // The Number is Valid if The Final Sum is a Multiple of 10
+    const isValid = sum > 0 && sum % 10 === 0;
     return CreditCardNumberResponseDto.create(number, isValid);
   }
 }
