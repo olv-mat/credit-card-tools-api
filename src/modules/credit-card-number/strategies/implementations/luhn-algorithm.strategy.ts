@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreditCardNumberResponseDto } from '../../dtos/credit-card-number-response.dto';
+import { CreditCardNumberValidationDto } from '../../dtos/credit-card-number-validation.dto';
 import { CreditCardNumberStrategy } from '../credit-card-number.strategy';
 
 @Injectable()
 export class LuhnAlgorithmStrategy extends CreditCardNumberStrategy {
-  public validate(number: string): CreditCardNumberResponseDto {
+  public validate(number: string): CreditCardNumberValidationDto {
     const sum = number
       .split('') // Convert The Input String Into an Array of Characters
       .reverse() // Reverse The Array as The Luhn Algorithm Processes From Right to Left
@@ -23,6 +23,6 @@ export class LuhnAlgorithmStrategy extends CreditCardNumberStrategy {
       }, 0);
     // The Number is Valid if The Final Sum is a Multiple of 10
     const isValid = sum > 0 && sum % 10 === 0;
-    return CreditCardNumberResponseDto.create(number, isValid);
+    return CreditCardNumberValidationDto.create(number, isValid);
   }
 }

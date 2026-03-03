@@ -1,5 +1,5 @@
-import { CreditCardNumberResponseDto } from '../dtos/credit-card-number-response.dto';
+import { CreditCardNumberValidationDto } from '../dtos/credit-card-number-validation.dto';
 
 export abstract class CreditCardNumberStrategy {
-  public abstract validate(number: string): CreditCardNumberResponseDto;
+  public abstract validate(number: string): CreditCardNumberValidationDto;
 }

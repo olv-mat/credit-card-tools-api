@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing';
 import { CreditCardNumberService } from '../credit-card-number.service';
 import { CreditCardNumberContext } from '../strategies/credit-card-number.context';
 import { makeCreditCardNumberDto } from './factories/credit-card-number-dto.factory';
-import { makeCreditCardNumberResponseDto } from './factories/credit-card-number-response-dto.factory';
+import { makeCreditCardNumberValidationDto } from './factories/credit-card-number-validation-dto.factory';
 
 type CreditCardNumberServiceContext = {
   creditCardNumberService: CreditCardNumberService;
@@ -30,7 +30,7 @@ describe('CreditCardNumberService', () => {
     it('should return true when card number is valid', () => {
       const { creditCardNumberService, creditCardNumberContext } = context;
       const dto = makeCreditCardNumberDto();
-      const expectedResponse = makeCreditCardNumberResponseDto();
+      const expectedResponse = makeCreditCardNumberValidationDto();
       jest
         .spyOn(creditCardNumberContext, 'execute')
         .mockReturnValue(expectedResponse);
@@ -43,7 +43,7 @@ describe('CreditCardNumberService', () => {
     it('should return false when card number is invalid', () => {
       const { creditCardNumberService, creditCardNumberContext } = context;
       const dto = makeCreditCardNumberDto({ number: '3589865206116493' });
-      const expectedResponse = makeCreditCardNumberResponseDto({
+      const expectedResponse = makeCreditCardNumberValidationDto({
         isValid: false,
       });
       jest
