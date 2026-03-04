@@ -1,11 +1,11 @@
 export class CreditCardNumberListDto {
-  public readonly numbers: number[];
+  public readonly numbers: string[];
 
-  private constructor(numbers: number[]) {
+  private constructor(numbers: string[]) {
     this.numbers = numbers;
   }
 
-  public static create(numbers: number[]): CreditCardNumberListDto {
+  public static create(numbers: string[]): CreditCardNumberListDto {
     return new CreditCardNumberListDto(numbers);
   }
 }
