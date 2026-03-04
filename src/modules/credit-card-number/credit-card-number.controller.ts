@@ -23,7 +23,11 @@ export class CreditCardNumberController {
 
   @Get()
   @ApiOperation({ summary: 'Generate a list of valid credit card numbers' })
-  @ApiQuery({ name: 'amount', required: false, example: 10 })
+  @ApiQuery({
+    name: 'amount',
+    required: false,
+    example: 10,
+  })
   @SwaggerBadRequest('Amount must be between 1 and 10')
   public generate(
     @Query('amount', new DefaultValuePipe(1), ParseIntPipe) amount: number,

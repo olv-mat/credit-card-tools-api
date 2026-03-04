@@ -4,18 +4,32 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { CreditCardNumberController } from '../credit-card-number.controller';
 import { makeCreditCardNumberDto } from './factories/credit-card-number-dto.factory';
+import { makeCreditCardNumberListDto } from './factories/credit-card-number-list-dto.factory';
 import { makeCreditCardNumberValidationDto } from './factories/credit-card-number-validation-dto.factory';
 
 describe('CreditCardNumberController', () => {
   let creditCardNumberController: CreditCardNumberController;
   const creditCardNumberService = {
+    generate: jest.fn(),
     validate: jest.fn(),
   } as any;
 
   beforeEach(() => {
+    jest.clearAllMocks();
     creditCardNumberController = new CreditCardNumberController(
       creditCardNumberService,
     );
+  });
+
+  describe('generate', () => {
+    it('should call the service and return mapped response', () => {
+      const amount = 1;
+      const expectedResponse = makeCreditCardNumberListDto();
+      creditCardNumberService.generate.mockReturnValue(expectedResponse);
+      const response = creditCardNumberController.generate(amount);
+      expect(creditCardNumberService.validate).toHaveBeenCalledWith(amount);
+      expect(response).toEqual(expectedResponse);
+    });
   });
 
   describe('validate', () => {
