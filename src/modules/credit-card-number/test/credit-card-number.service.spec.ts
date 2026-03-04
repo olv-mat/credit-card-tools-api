@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
+import { BadRequestException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { CreditCardNumberService } from '../credit-card-number.service';
 import { CreditCardNumberContext } from '../strategies/credit-card-number.context';
@@ -24,6 +25,35 @@ describe('CreditCardNumberService', () => {
       creditCardNumberService: module.get(CreditCardNumberService),
       creditCardNumberContext: module.get(CreditCardNumberContext),
     };
+  });
+
+  describe('generate', () => {
+    it('should return a list of valid credit card numbers', () => {
+      const { creditCardNumberService, creditCardNumberContext } = context;
+      const amount = 50;
+      const mockValidationResponse = makeCreditCardNumberValidationDto();
+      jest
+        .spyOn(creditCardNumberContext, 'execute')
+        .mockReturnValue(mockValidationResponse);
+      const response = creditCardNumberService.generate(amount);
+      expect(response.numbers).toHaveLength(amount);
+      expect(creditCardNumberContext.execute).toHaveBeenCalledTimes(amount);
+      response.numbers.forEach((number) => {
+        expect(number).toHaveLength(16);
+        expect(typeof number).toBe('string');
+      });
+    });
+
+    it('should throw bad request exception when amount is out of range', () => {
+      const { creditCardNumberService } = context;
+      expect(() => creditCardNumberService.generate(0)).toThrow(
+        BadRequestException,
+      );
+
+      expect(() => creditCardNumberService.generate(101)).toThrow(
+        BadRequestException,
+      );
+    });
   });
 
   describe('validate', () => {

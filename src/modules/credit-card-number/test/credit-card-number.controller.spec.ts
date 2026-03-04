@@ -27,13 +27,13 @@ describe('CreditCardNumberController', () => {
       const expectedResponse = makeCreditCardNumberListDto();
       creditCardNumberService.generate.mockReturnValue(expectedResponse);
       const response = creditCardNumberController.generate(amount);
-      expect(creditCardNumberService.validate).toHaveBeenCalledWith(amount);
+      expect(creditCardNumberService.generate).toHaveBeenCalledWith(amount);
       expect(response).toEqual(expectedResponse);
     });
   });
 
   describe('validate', () => {
-    it('should call the service passing the correct argument and return mapped response', () => {
+    it('should call the service and return mapped response', () => {
       const dto = makeCreditCardNumberDto();
       const expectedResponse = makeCreditCardNumberValidationDto();
       creditCardNumberService.validate.mockReturnValue(expectedResponse);
