@@ -22,7 +22,7 @@ describe('CreditCardNumberController', () => {
   });
 
   describe('generate', () => {
-    it('should call the service and return mapped response', () => {
+    it('should call the service and return the expected response', () => {
       const amount = 1;
       const expectedResponse = makeCreditCardNumberListDto();
       creditCardNumberService.generate.mockReturnValue(expectedResponse);
@@ -33,7 +33,7 @@ describe('CreditCardNumberController', () => {
   });
 
   describe('validate', () => {
-    it('should call the service and return mapped response', () => {
+    it('should call the service and return the expected response', () => {
       const dto = makeCreditCardNumberDto();
       const expectedResponse = makeCreditCardNumberValidationDto();
       creditCardNumberService.validate.mockReturnValue(expectedResponse);

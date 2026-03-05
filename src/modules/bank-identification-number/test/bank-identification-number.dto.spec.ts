@@ -27,7 +27,7 @@ describe('BankIdentificationNumberDto', () => {
     const errors = await validate(dto);
     expect(errors.length).toBe(1);
     expect(errors[0].property).toBe('bin');
-    expect(errors[0].constraints).toHaveProperty('minLength');
+    expect(errors[0].constraints).toHaveProperty('isLength');
   });
 
   it('should fail if the size is greater than 6 characters', async () => {
@@ -35,6 +35,6 @@ describe('BankIdentificationNumberDto', () => {
     const errors = await validate(dto);
     expect(errors.length).toBe(1);
     expect(errors[0].property).toBe('bin');
-    expect(errors[0].constraints).toHaveProperty('maxLength');
+    expect(errors[0].constraints).toHaveProperty('isLength');
   });
 });

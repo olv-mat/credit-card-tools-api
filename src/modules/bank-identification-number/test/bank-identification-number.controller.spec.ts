@@ -19,7 +19,7 @@ describe('BankIdentificationNumberController', () => {
   });
 
   describe('validate', () => {
-    it('should call the service passing the correct argument and return mapped response', async () => {
+    it('should call the service, passing the correct argument and return the expected response', async () => {
       const dto = makeBankIdentificationNumberDto();
       const expectedResponse = makeBankIdentificationNumberResponseDto();
       bankIdentificationNumberService.validate.mockResolvedValue(
