@@ -9,7 +9,7 @@ import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 
 export function setupSwagger(app: INestApplication): void {
   const builder = new DocumentBuilder()
-    .setTitle('Credit Card Tools API')
+    .setTitle(`Credit Card Tools API (${process.env.NODE_ENV})`)
     .setDescription(
       `A NestJS-based credit card utility API using the Strategy pattern. 
       It features BIN identification with caching interceptors 
