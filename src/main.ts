@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-require('tsconfig-paths/register');
-
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import helmet from 'helmet';
