@@ -11,8 +11,7 @@ export function setupSwagger(app: INestApplication): void {
   const builder = new DocumentBuilder()
     .setTitle(`Credit Card Tools API (${process.env.NODE_ENV})`)
     .setDescription(
-      `A NestJS-based credit card utility API using the Strategy pattern. 
-      It features BIN identification with caching interceptors 
+      `A NestJS-based credit card utility API. It features BIN identification with caching interceptors 
       and a card number validator powered by the Luhn Algorithm.`.trim(),
     )
     .setVersion('1.0')
