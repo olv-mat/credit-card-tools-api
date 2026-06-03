@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { CreditCardNumberController } from '../credit-card-number.controller';
+import { CreditCardNumberService } from '../credit-card-number.service';
 import { makeCreditCardNumberDto } from './factories/credit-card-number-dto.factory';
 import { makeCreditCardNumberListDto } from './factories/credit-card-number-list-dto.factory';
 import { makeCreditCardNumberValidationDto } from './factories/credit-card-number-validation-dto.factory';
@@ -12,12 +9,12 @@ describe('CreditCardNumberController', () => {
   const creditCardNumberService = {
     generate: jest.fn(),
     validate: jest.fn(),
-  } as any;
+  };
 
   beforeEach(() => {
     jest.clearAllMocks();
     creditCardNumberController = new CreditCardNumberController(
-      creditCardNumberService,
+      creditCardNumberService as unknown as CreditCardNumberService,
     );
   });
 

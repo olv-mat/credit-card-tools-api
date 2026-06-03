@@ -8,7 +8,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { SwaggerBadRequest } from 'src/common/swagger/responses.swagger';
+import { SwaggerBadRequest } from 'src/common/settings/swagger/swagger.decorators';
 import { CreditCardNumberService } from './credit-card-number.service';
 import { CreditCardNumberListDto } from './dtos/credit-card-number-list.dto';
 import { CreditCardNumberValidationDto } from './dtos/credit-card-number-validation.dto';

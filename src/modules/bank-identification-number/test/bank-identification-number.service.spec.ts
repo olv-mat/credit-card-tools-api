@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { Test } from '@nestjs/testing';
 import { makeBankIdentificationNumberDto } from '../../bank-identification-number/test/factories/bank-identification-number-dto.factory';
 import { makeBankIdentificationNumberResponseDto } from '../../bank-identification-number/test/factories/bank-identification-number-response-dto.factory';
@@ -41,14 +40,12 @@ describe('BankIdentificationNumberService', () => {
       } = context;
       const dto = makeBankIdentificationNumberDto();
       const expectedResponse = makeBankIdentificationNumberResponseDto();
-      jest
+      const spy = jest
         .spyOn(bankIdentificationNumberContext, 'execute')
         .mockResolvedValue(expectedResponse);
       const response = await bankIdentificationNumberService.validate(dto);
       expect(response).toEqual(expectedResponse);
-      expect(bankIdentificationNumberContext.execute).toHaveBeenCalledWith(
-        dto.bin,
-      );
+      expect(spy).toHaveBeenCalledWith(dto.bin);
     });
   });
 });

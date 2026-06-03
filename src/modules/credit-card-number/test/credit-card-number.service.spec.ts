@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { BadRequestException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { CreditCardNumberService } from '../credit-card-number.service';
@@ -32,12 +31,12 @@ describe('CreditCardNumberService', () => {
       const { creditCardNumberService, creditCardNumberContext } = context;
       const amount = 50;
       const mockValidationResponse = makeCreditCardNumberValidationDto();
-      jest
+      const spy = jest
         .spyOn(creditCardNumberContext, 'execute')
         .mockReturnValue(mockValidationResponse);
       const response = creditCardNumberService.generate(amount);
       expect(response.numbers).toHaveLength(amount);
-      expect(creditCardNumberContext.execute).toHaveBeenCalledTimes(amount);
+      expect(spy).toHaveBeenCalledTimes(amount);
       response.numbers.forEach((number) => {
         expect(number).toHaveLength(16);
         expect(typeof number).toBe('string');
@@ -61,13 +60,13 @@ describe('CreditCardNumberService', () => {
       const { creditCardNumberService, creditCardNumberContext } = context;
       const dto = makeCreditCardNumberDto();
       const expectedResponse = makeCreditCardNumberValidationDto();
-      jest
+      const spy = jest
         .spyOn(creditCardNumberContext, 'execute')
         .mockReturnValue(expectedResponse);
       const response = creditCardNumberService.validate(dto);
       expect(response).toEqual(expectedResponse);
       expect(response.isValid).toBe(true);
-      expect(creditCardNumberContext.execute).toHaveBeenCalledWith(dto.number);
+      expect(spy).toHaveBeenCalledWith(dto.number);
     });
 
     it('should return false when card number is invalid', () => {
@@ -76,13 +75,13 @@ describe('CreditCardNumberService', () => {
       const expectedResponse = makeCreditCardNumberValidationDto({
         isValid: false,
       });
-      jest
+      const spy = jest
         .spyOn(creditCardNumberContext, 'execute')
         .mockReturnValue(expectedResponse);
       const response = creditCardNumberService.validate(dto);
       expect(response).toBe(expectedResponse);
       expect(response.isValid).toBe(false);
-      expect(creditCardNumberContext.execute).toHaveBeenCalledWith(dto.number);
+      expect(spy).toHaveBeenCalledWith(dto.number);
     });
   });
 });

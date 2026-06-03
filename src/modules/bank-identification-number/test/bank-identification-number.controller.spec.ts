@@ -1,20 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { makeBankIdentificationNumberDto } from '../../bank-identification-number/test/factories/bank-identification-number-dto.factory';
 import { makeBankIdentificationNumberResponseDto } from '../../bank-identification-number/test/factories/bank-identification-number-response-dto.factory';
 import { BankIdentificationNumberController } from '../bank-identification-number.controller';
+import { BankIdentificationNumberService } from '../bank-identification-number.service';
 
 describe('BankIdentificationNumberController', () => {
   let bankIdentificationNumberController: BankIdentificationNumberController;
   const bankIdentificationNumberService = {
     validate: jest.fn(),
-  } as any;
+  };
 
   beforeEach(() => {
     bankIdentificationNumberController = new BankIdentificationNumberController(
-      bankIdentificationNumberService,
+      bankIdentificationNumberService as unknown as BankIdentificationNumberService,
     );
   });
 

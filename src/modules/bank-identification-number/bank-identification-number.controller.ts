@@ -1,7 +1,7 @@
 import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { BankIdentificationNumberCacheInterceptor } from 'src/common/interceptors/bank-identification-number-cache.interceptor';
-import { SwaggerBadRequest } from 'src/common/swagger/responses.swagger';
+import { SwaggerBadRequest } from 'src/common/settings/swagger/swagger.decorators';
 import { BankIdentificationNumberService } from './bank-identification-number.service';
 import { BankIdentificationNumberResponseDto } from './dtos/bank-identification-number-response.dto';
 import { BankIdentificationNumberDto } from './dtos/bank-identification-number.dto';
